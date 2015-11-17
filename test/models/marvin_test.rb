@@ -91,4 +91,19 @@ class MarvinTest < ActiveSupport::TestCase
 
     assert_includes socket.messages.last["text"], "Echo"
   end
+
+  test "can link pokedex entries" do
+    socket = DummySocket.new
+    marvin = Marvin.new socket
+
+    marvin.handle_event({
+      "type"    => "message",
+      "text"    => "marvin pokedex ditto",
+      "channel" => "3"
+    })
+
+    resp = socket.messages.last
+    assert_equal "http://www.pokemon.com/us/pokedex/ditto", resp["text"]
+    assert_equal "3", resp["channel"]
+  end
 end
