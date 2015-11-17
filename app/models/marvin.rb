@@ -1,6 +1,6 @@
 class Marvin
   attr_reader :plugins
-  
+
   def initialize socket = nil
     @slack_socket = socket || connect_to_slack_rtm
 
@@ -33,11 +33,17 @@ class Marvin
     return unless content["type"] == "message"
 
     @plugins.each do |p|
-      if p.matches? content
-        resp = p.handle content
-        if resp
-          send_message resp, content["channel"]
+      begin
+
+        if p.matches? content
+          resp = p.handle content
+          if resp
+            send_message resp, content["channel"]
+          end
         end
+
+      rescue StandardError => e
+        Rails.logger.error "#{p} failed with #{e} for #{content}"
       end
     end
 
