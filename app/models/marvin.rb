@@ -1,6 +1,6 @@
 class Marvin
-  def initialize
-    @slack_socket = connect_to_slack_rtm
+  def initialize socket = nil
+    @slack_socket = socket || connect_to_slack_rtm
   end
 
   def each_message &thing_to_do
