@@ -5,17 +5,27 @@ class Marvin
 
   def each_message &thing_to_do
     @slack_socket.on :message do |event|
-      content = JSON.parse event.data
-      if content["type"] == "message"
-        if content["text"] =~ /marvin echo (.*)/
-          @slack_socket.send({
-            id:      1,
-            type:    "message",
-            text:    $1,
-            channel: content["channel"]
-          }.to_json)
-        end
-        thing_to_do.call(content["text"])
+      response = handle_event JSON.parse event.data
+      if response
+        thing_to_do.call(response)
+      end
+    end
+  end
+
+  def send_message text, channel
+    @slack_socket.send({
+      id:      1,
+      type:    "message",
+      text:    text,
+      channel: channel
+    }.to_json)
+  end
+
+  def handle_event content
+    if content["type"] == "message"
+      if content["text"] =~ /marvin echo (.*)/
+        send_message $1, content["channel"]
+        return "Echoing '#{$1}' to '#{content['channel']}'"
       end
     end
   end
