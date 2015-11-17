@@ -3,7 +3,8 @@ class Marvin
     @slack_socket = socket || connect_to_slack_rtm
 
     @plugins = [
-      Plugins::Echo.new
+      Plugins::Echo.new,
+      Plugins::Points.new
     ]
   end
 
