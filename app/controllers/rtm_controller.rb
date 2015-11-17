@@ -3,10 +3,12 @@ class RtmController < ApplicationController
 
   def messages
     hijack do |socket|
-      m = Marvin.new
-      m.each_message do |msg|
-        socket.send_data msg
-      end
+      EM.run {
+        m = Marvin.new
+        m.each_message do |msg|
+          socket.send_data msg
+        end
+      }
     end
   end
 end
