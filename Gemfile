@@ -16,6 +16,8 @@ gem 'httparty'
 gem 'eventmachine'
 gem 'faye-websocket'
 gem 'figaro'
+gem 'tubesock'
+gem 'puma'
 
 group :development, :test do
   gem 'pry-rails'

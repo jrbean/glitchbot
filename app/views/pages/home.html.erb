@@ -1,0 +1,16 @@
+<h3>Recent Messages</h3>
+<ul class="recent-messages"></ul>
+
+<script type="text/javascript">
+  var messageList = $(".recent-messages");
+
+  window.addEventListener("load", function() {
+    socket = new WebSocket("ws://" + window.location.host + "/rtm")
+
+    socket.onmessage = function(event) {
+      console.log(event);
+      var newItem = $("<li>" + event.data + "</li>");
+      messageList.append(newItem);
+    }
+  })
+</script>
