@@ -1,6 +1,10 @@
 class Marvin
   def initialize socket = nil
     @slack_socket = socket || connect_to_slack_rtm
+
+    @plugins = [
+      Plugins::Echo.new
+    ]
   end
 
   def each_message &thing_to_do
@@ -22,21 +26,30 @@ class Marvin
   end
 
   def handle_event content
-    if content["type"] == "message"
-      if content["text"] =~ /marvin echo (.*)/
-        send_message $1, content["channel"]
-        return "Echoing '#{$1}' to '#{content['channel']}'"
-      elsif content["text"] =~ /(\w+)(\+\+|--)/
-        score = Score.where(name: $1).first_or_create!
-        if $2 == "++"
-          score.points += 1
-        else
-          score.points -= 1
+    return unless content["type"] == "message"
+
+    @plugins.each do |p|
+      if p.matches? content
+        resp = p.handle content
+        if resp
+          send_message resp, content["channel"]
         end
-        score.save!
-        send_message "#{$1} now has #{score.points} points", content["channel"]
       end
     end
+
+    # if content["text"] =~ /marvin echo (.*)/
+    #   send_message $1, content["channel"]
+    #   return "Echoing '#{$1}' to '#{content['channel']}'"
+    # elsif content["text"] =~ /(\w+)(\+\+|--)/
+    #   score = Score.where(name: $1).first_or_create!
+    #   if $2 == "++"
+    #     score.points += 1
+    #   else
+    #     score.points -= 1
+    #   end
+    #   score.save!
+    #   send_message "#{$1} now has #{score.points} points", content["channel"]
+    # end
   end
 
 private
