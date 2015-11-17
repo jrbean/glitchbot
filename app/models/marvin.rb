@@ -7,6 +7,7 @@ class Marvin
     @plugins = [
       Plugins::Echo.new,
       Plugins::Points.new,
+      Plugins::Rules.new,
       Plugins::Help.new(self)
     ]
   end
