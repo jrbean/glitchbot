@@ -26,9 +26,13 @@ class Marvin
       if content["text"] =~ /marvin echo (.*)/
         send_message $1, content["channel"]
         return "Echoing '#{$1}' to '#{content['channel']}'"
-      elsif content["text"] =~ /(\w+)\+\+/
+      elsif content["text"] =~ /(\w+)(\+\+|--)/
         score = Score.where(name: $1).first_or_create!
-        score.points += 1
+        if $2 == "++"
+          score.points += 1
+        else
+          score.points -= 1
+        end
         score.save!
         send_message "#{$1} now has #{score.points} points", content["channel"]
       end
