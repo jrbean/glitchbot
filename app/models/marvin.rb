@@ -47,36 +47,17 @@ class Marvin
         Rails.logger.error "#{p} failed with #{e} for #{content}"
       end
     end
-
-    # if content["text"] =~ /marvin echo (.*)/
-    #   send_message $1, content["channel"]
-    #   return "Echoing '#{$1}' to '#{content['channel']}'"
-    # elsif content["text"] =~ /(\w+)(\+\+|--)/
-    #   score = Score.where(name: $1).first_or_create!
-    #   if $2 == "++"
-    #     score.points += 1
-    #   else
-    #     score.points -= 1
-    #   end
-    #   score.save!
-    #   send_message "#{$1} now has #{score.points} points", content["channel"]
-    # end
   end
 
 private
 
   def connect_to_slack_rtm
-    # Tell Slack to open ws
     resp = Slack.new.call "rtm.start"
     if resp["ok"]
       websocket_url = resp["url"]
     else
       raise "Failed to connect: #{resp["error"]}"
     end
-
-    # Get channel id
-    resp = Slack.new.call "channels.list"
-    chan = resp["channels"].find { |c| c["name"] == "_robots" }
 
     Faye::WebSocket::Client.new(websocket_url, nil, ping: 25)
   end
