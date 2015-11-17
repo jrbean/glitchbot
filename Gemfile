@@ -1,8 +1,8 @@
 source 'https://rubygems.org'
-
+ruby '2.2.3'
 
 gem 'rails', '4.2.4'
-gem 'sqlite3'
+gem 'pg'
 gem 'sass-rails', '~> 5.0'
 gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.1.0'
@@ -18,12 +18,4 @@ gem 'faye-websocket'
 gem 'figaro'
 gem 'tubesock'
 gem 'puma'
-
-group :development, :test do
-  gem 'pry-rails'
-end
-
-group :development do
-  # Access an IRB console on exception pages or by using <%= console %> in views
-  gem 'web-console', '~> 2.0'
-end
+gem 'pry-rails'
