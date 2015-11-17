@@ -4,8 +4,7 @@ require "eventmachine"
 require "faye/websocket"
 
 # Tell Slack to open ws
-resp = HTTParty.post "https://slack.com/api/rtm.start",
-  query: { token: ENV.fetch("marvin_bot_token") }
+resp = Slack.call "rtm.start"
 if resp["ok"]
   websocket_url = resp["url"]
 else
@@ -13,8 +12,7 @@ else
 end
 
 # Get channel id
-resp = HTTParty.post "https://slack.com/api/channels.list",
-  query: { token: ENV.fetch("marvin_bot_token") }
+resp = Slack.call "channels.list"
 chan = resp["channels"].find { |c| c["name"] == "dc_sept2015_rails" }
 
 EM.run {
