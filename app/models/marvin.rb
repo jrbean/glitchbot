@@ -1,10 +1,13 @@
 class Marvin
+  attr_reader :plugins
+  
   def initialize socket = nil
     @slack_socket = socket || connect_to_slack_rtm
 
     @plugins = [
       Plugins::Echo.new,
-      Plugins::Points.new
+      Plugins::Points.new,
+      Plugins::Help.new(self)
     ]
   end
 

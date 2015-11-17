@@ -79,4 +79,16 @@ class MarvinTest < ActiveSupport::TestCase
     score.reload
     assert_equal 3, score.points
   end
+
+  test "it can get help" do
+    socket = DummySocket.new
+    marvin = Marvin.new socket
+    marvin.handle_event({
+      "type"    => "message",
+      "text"    => "marvin help",
+      "channel" => "3"
+    })
+
+    assert_includes socket.messages.last["text"], "Echo"
+  end
 end
