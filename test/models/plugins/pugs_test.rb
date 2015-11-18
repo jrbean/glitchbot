@@ -16,4 +16,14 @@ class PugsTest < ActiveSupport::TestCase
       assert_includes resp, "media.tumblr.com"
     end
   end
+
+  test "it can serve up multiple pugs" do
+    VCR.use_cassette "4 pugs", re_record_interval: 1.week do
+      resp = @p.handle "text" => "marvin pug bomb 4"
+      assert 4, resp.count
+      resp.each do |url|
+        assert_includes url, "media.tumblr.com"
+      end
+    end
+  end
 end

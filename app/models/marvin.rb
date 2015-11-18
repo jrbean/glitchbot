@@ -38,8 +38,8 @@ class Marvin
       begin
 
         if p.matches? content
-          resp = p.handle content
-          if resp
+          responses = Array(p.handle content)
+          responses.each do |resp|
             send_message resp, content["channel"]
           end
         end

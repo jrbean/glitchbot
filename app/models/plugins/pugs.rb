@@ -18,6 +18,11 @@ module Plugins
       if count == 1
         response = HTTParty.get "http://pugme.herokuapp.com/random"
         response["pug"]
+      elsif count <= 5
+        count.times.map do
+          response = HTTParty.get "http://pugme.herokuapp.com/random"
+          response["pug"]
+        end
       else
         "That's too many pugs"
       end
