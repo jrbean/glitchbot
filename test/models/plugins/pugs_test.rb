@@ -11,7 +11,9 @@ class PugsTest < ActiveSupport::TestCase
   end
 
   test "it can serve up a pug" do
-    resp = @p.handle "text" => "marvin pug me"
-    assert_includes resp, "media.tumblr.com"
+    VCR.use_cassette "1 pug", re_record_interval: 1.week do
+      resp = @p.handle "text" => "marvin pug me"
+      assert_includes resp, "media.tumblr.com"
+    end
   end
 end

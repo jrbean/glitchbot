@@ -19,3 +19,8 @@ gem 'figaro'
 gem 'tubesock'
 gem 'puma'
 gem 'pry-rails'
+
+group :test do
+  gem 'vcr'
+  gem 'webmock'
+end

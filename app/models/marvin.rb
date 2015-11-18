@@ -53,6 +53,8 @@ class Marvin
 private
 
   def connect_to_slack_rtm
+    return unless Rails.env.production?
+
     resp = Slack.new.call "rtm.start"
     if resp["ok"]
       websocket_url = resp["url"]
