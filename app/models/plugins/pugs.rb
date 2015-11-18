@@ -8,12 +8,18 @@ module Plugins
       if content["text"] == "marvin pug me"
         pugs 1
       else content["text"] =~ /marvin pug bomb (\d+)/
-        count = $1.to_i
-        if count <= 5
-          pugs count
-        else
-          "That's too many pugs"
-        end
+        pugs $1.to_i
+      end
+    end
+
+    private
+
+    def pugs count
+      if count == 1
+        response = HTTParty.get "http://pugme.herokuapp.com/random"
+        response["pug"]
+      else
+        "That's too many pugs"
       end
     end
   end

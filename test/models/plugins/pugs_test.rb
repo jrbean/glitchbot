@@ -12,6 +12,6 @@ class PugsTest < ActiveSupport::TestCase
 
   test "it can serve up a pug" do
     resp = @p.handle "text" => "marvin pug me"
-    assert_equal "something", resp
+    assert_includes resp, "media.tumblr.com"
   end
 end
