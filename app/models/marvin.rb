@@ -8,8 +8,12 @@ class Marvin
       Plugins::Echo.new,
       Plugins::Points.new,
       Plugins::Rules.new,
+
+      Plugins::Help.new(self),
+      Plugins::Pokedex.new
+
       Plugins::Pugs.new,
-      Plugins::Help.new(self)
+
     ]
   end
 
