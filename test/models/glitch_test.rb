@@ -12,14 +12,14 @@ class DummySocket
   end
 end
 
-class MarvinTest < ActiveSupport::TestCase
+class GlitchTest < ActiveSupport::TestCase
   test "it can echo text" do
     socket = DummySocket.new
-    marvin = Marvin.new socket
+    glitch = Glitch.new socket
 
-    marvin.handle_event({
+    glitch.handle_event({
       "type"    => "message",
-      "text"    => "marvin echo quack",
+      "text"    => "glitch echo quack",
       "channel" => "3"
     })
 
@@ -31,10 +31,10 @@ class MarvinTest < ActiveSupport::TestCase
 
   test "it doesn't echo all text" do
     socket = DummySocket.new
-    marvin = Marvin.new socket
-    marvin.handle_event({
+    glitch = Glitch.new socket
+    glitch.handle_event({
       "type"    => "message",
-      "text"    => "general message that isn't for marvin",
+      "text"    => "general message that isn't for glitch",
       "channel" => "3"
     })
 
@@ -43,8 +43,8 @@ class MarvinTest < ActiveSupport::TestCase
 
   test "can give things points" do
     socket = DummySocket.new
-    marvin = Marvin.new socket
-    marvin.handle_event({
+    glitch = Glitch.new socket
+    glitch.handle_event({
       "type" => "message",
       "text" => "some stuff where su++ happens"
     })
@@ -53,7 +53,7 @@ class MarvinTest < ActiveSupport::TestCase
     assert_equal 1, record.points
 
     3.times do
-      marvin.handle_event({
+      glitch.handle_event({
         "type" => "message",
         "text" => "some stuff where su++ happens"
       })
@@ -68,9 +68,9 @@ class MarvinTest < ActiveSupport::TestCase
 
   test "can take points away" do
     score = Score.create! name: "asdf_zxcv", points: 5
-    marvin = Marvin.new
+    glitch = Glitch.new
     2.times do
-      marvin.handle_event({
+      glitch.handle_event({
         "type" => "message",
         "text" => "asdf_zxcv--"
       })
@@ -82,10 +82,10 @@ class MarvinTest < ActiveSupport::TestCase
 
   test "it can get help" do
     socket = DummySocket.new
-    marvin = Marvin.new socket
-    marvin.handle_event({
+    glitch = Glitch.new socket
+    glitch.handle_event({
       "type"    => "message",
-      "text"    => "marvin help",
+      "text"    => "glitch help",
       "channel" => "3"
     })
 
@@ -94,11 +94,11 @@ class MarvinTest < ActiveSupport::TestCase
 
   test "can link pokedex entries" do
     socket = DummySocket.new
-    marvin = Marvin.new socket
+    glitch = Glitch.new socket
 
-    marvin.handle_event({
+    glitch.handle_event({
       "type"    => "message",
-      "text"    => "marvin pokedex ditto",
+      "text"    => "glitch pokedex ditto",
       "channel" => "3"
     })
 
