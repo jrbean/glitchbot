@@ -1,6 +1,6 @@
 class Slack
   def initialize token=nil
-    @token ||= ENV.fetch("marvin_bot_token")
+    @token ||= ENV.fetch("glitch_bot_token")
   end
 
   def call endpoint

@@ -1,4 +1,4 @@
-class Marvin
+class Glitch
   attr_reader :plugins
 
   def initialize socket = nil
@@ -10,7 +10,7 @@ class Marvin
       Plugins::Rules.new,
 
       Plugins::Help.new(self),
-      Plugins::Pokedex.new
+      Plugins::Pokedex.new,
 
       Plugins::Pugs.new,
 

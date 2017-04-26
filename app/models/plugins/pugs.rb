@@ -1,13 +1,13 @@
 module Plugins
   class Pugs
     def matches? content
-      content["text"].start_with? "marvin pug"
+      content["text"].start_with? "glitch pug"
     end
 
     def handle content
-      if content["text"] == "marvin pug me"
+      if content["text"] == "glitch pug me"
         pugs 1
-      else content["text"] =~ /marvin pug bomb (\d+)/
+      else content["text"] =~ /glitch pug bomb (\d+)/
         pugs $1.to_i
       end
     end
@@ -24,7 +24,7 @@ module Plugins
           response["pug"]
         end
       else
-        "That's too many pugs"
+        "too many pugs, dude"
       end
     end
   end

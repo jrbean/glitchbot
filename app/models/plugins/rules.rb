@@ -1,7 +1,7 @@
 module Plugins
   class Rules
     def matches? content
-      content["text"] =~ /marvin.*the rules/
+      content["text"] =~ /glitch.*the rules/
     end
 
     def handle _

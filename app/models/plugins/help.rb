@@ -5,12 +5,12 @@ module Plugins
     end
 
     def matches? content
-      content["text"] == "marvin help"
+      content["text"] == "glitch help"
     end
 
     def handle content
       plugs = @bot.plugins.map { |p| p.class.name }.join ", "
-      "Marvin is a chatbot with the following plugins: #{plugs}"
+      "Glitch is a chatbot with the following plugins: #{plugs}"
     end
   end
 end

@@ -1,11 +1,11 @@
 module Plugins
   class Echo
     def matches? content
-      content["text"].start_with? "marvin echo"
+      content["text"].start_with? "glitch echo"
     end
 
     def handle content
-      content["text"] =~ /marvin echo (.*)/
+      content["text"] =~ /glitch echo (.*)/
       $1
     end
   end

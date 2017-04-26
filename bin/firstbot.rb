@@ -5,8 +5,8 @@ require "faye/websocket"
 
 
 EM.run {
-  marv = Marvin.new
-  marv.each_message do |msg|
+  gli = Glitch.new
+  gli.each_message do |msg|
     puts msg
   end
 }
